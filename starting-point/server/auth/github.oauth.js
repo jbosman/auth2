@@ -3,6 +3,7 @@
 var router = require('express').Router();
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
+var secret = require('../../../starting-point/secret.js');
 
 var User = require('../api/users/user.model');
 
@@ -13,11 +14,7 @@ router.get('/callback', passport.authenticate('github', {
   failureRedirect: '/signup'
 }));
 
-passport.use(new GitHubStrategy({
-  clientID: '6070304fd627e594fbb1',
-  clientSecret: '592efd0f785508c3dc0c9376e04605ddd7a6bd76',
-  callbackURL: 'http://127.0.0.1:8080/auth/github/callback'
-}, function (token, refreshToken, profile, done) {
+passport.use(new GitHubStrategy( secret.github, function (token, refreshToken, profile, done) {
   var info = {
     name: profile.displayName,
     // github may not provide an email, if so we'll just fake it
