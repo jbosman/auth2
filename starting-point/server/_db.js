@@ -1,8 +1,8 @@
 'use strict';
 
 var Sequelize = require('sequelize');
-
-var databaseURI = 'postgres://localhost:5432/auther';
+var secrete = require('../secret.js');
+var databaseURI = secrete.databaseURL;
 
 var db = new Sequelize(databaseURI, {
   define: {
